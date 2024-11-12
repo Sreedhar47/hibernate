@@ -18,18 +18,19 @@ public class ApiService {
 	private ApiRepository repo;
 
 	public void excute() {
-	School  school = new School();
+	
 	Principal principal = new Principal();
 	principal.setName("XYZ");
-	List<Student> studs = new ArrayList<>();
-	Student stud = new Student();
-	stud.setName("vsr");
-	studs.add(stud);
+List<Student> studs = new ArrayList<>();
+	Student student = new Student();
+	student.setName("vsr");
+	studs.add(student);
 	
+	
+	School  school = new School();
 	school.setName("GOVT");
 	school.setPrincipal(principal);
 	school.setStudents(studs);
-	
 		repo.save(school);
 	}
 

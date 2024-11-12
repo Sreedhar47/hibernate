@@ -1,6 +1,7 @@
 package com.vsr.demo.on.hibernate.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,12 +11,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "school")
 public class School {
 	
 	@Id
@@ -31,9 +34,8 @@ public class School {
 	private Principal principal;
 	
 	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "student_id")
 	private List<Student> students;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -64,6 +66,12 @@ public class School {
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+		
+		if (students != null) {
+            for (Student student : students) {
+                student.setSchool(this);
+            }
+        }
 	}
 
    
